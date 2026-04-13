@@ -1,17 +1,25 @@
-# project
+# Veda.Herb (vedaherb.app)
 
-A new Flutter project.
+[![Flutter](https://img.shields.io/badge/Built%20with-Flutter-02569B?style=flat-square&logo=flutter)](https://flutter.dev)
+[![AI Engine](https://img.shields.io/badge/AI-Gemma%203%20%2B%20LiteRT-green?style=flat-square)](https://ai.google.dev)
 
-## Getting Started
+> **"Heritage in your pocket, health in your hands."**
 
-This project is a starting point for a Flutter application.
+Veda.Herb is an offline-first mobile solution designed for the **ASEAN AI Hackathon**. It digitizes traditional herbal wisdom across the ASEAN region, using Edge AI to provide safe, verified, and culturally resonant medical guidance in areas without internet connectivity.
 
-A few resources to get you started if this is your first Flutter project:
+## The Challenge
+In rural ASEAN, healthcare is often hours away. Communities rely on herbal heritage, but as this knowledge fades, the misuse of antibiotics (AMR) rises. **Veda.Herb** acts as a bridge, ensuring traditional remedies are used safely and according to modern medical standards.
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+## Key Features
+* **Step by Step Identification:** Combines **Computer Vision** (LiteRT), **Sensory Triage** (User input), and **Ecological Data** (GPS/Seasonality) to prevent toxic look-alike errors.
+* **Offline LLM Reasoning:** Powered by **Gemma 3**, providing localized conversational triage and dosage instructions without requiring constant internet.
+* **Safety-First Grounding:** Knowledge is grounded in a verified **ObjectBox** vector database (e.g., DOH-certified "10 Halamang Gamot").
+* **Active Monitoring:** A dynamic symptom tracking loop that escalates to emergency clinical locations if health does not improve.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Tech Stack
+- **Frontend:** Flutter (Mobile & Web)
+- **State Management:** Riverpod
+- **Local AI:** LiteRT (formerly TensorFlow Lite) for Vision & Gemma 3 for NLP
+- **Database:** ObjectBox (NoSQL / Vector Database)
+
+> Made by Team 10 (HealthHackers) of Mapúa Malayan Colleges Laguna
