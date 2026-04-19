@@ -24,7 +24,7 @@ class SettingsScreen extends ConsumerWidget {
                 const SizedBox(height: 48),
 
                 /// --- Appearance ---
-                Text("Appearance", style: textTheme.headlineMedium),
+                Text("Appearance", style: textTheme.headlineLarge),
                 const SizedBox(height: 16),
                 _buildSettingTile(
                   isDark: isDark,
@@ -34,7 +34,8 @@ class SettingsScreen extends ConsumerWidget {
                   trailing: TextButton(
                     onPressed: () {
                       ThemeMode next;
-                      if (themeMode == ThemeMode.system) { next = ThemeMode.light;
+                      if (themeMode == ThemeMode.system) {
+                        next = ThemeMode.light;
                       } else if (themeMode == ThemeMode.light) {
                         next = ThemeMode.dark;
                       } else {
@@ -44,8 +45,8 @@ class SettingsScreen extends ConsumerWidget {
                     },
                     style: _buttonStyle(),
                     child: Text(
-                      _getThemeLabel(themeMode), 
-                      style: textTheme.labelLarge?.copyWith(color: VedaTheme.brandGreen),
+                      _getThemeLabel(themeMode),
+                      style: textTheme.headlineSmall?.copyWith(color: VedaTheme.brandGreen),
                     ),
                   ),
                 ),
@@ -53,16 +54,16 @@ class SettingsScreen extends ConsumerWidget {
                 const SizedBox(height: 32),
 
                 /// --- About ---
-                Text("About", style: textTheme.headlineMedium),
+                Text("About", style: textTheme.headlineLarge),
                 const SizedBox(height: 16),
                 _buildSettingTile(
                   isDark: isDark,
-                  icon: Icons.info_rounded,
-                  label: "Version",
+                  icon: Icons.info,
+                  label: "App Version",
                   textTheme: textTheme,
                   trailing: _buildStaticBox(
                     child: Text(
-                      "1.0.0", 
+                      "1.0.0",
                       style: textTheme.bodyLarge?.copyWith(
                         color: VedaTheme.brandGreen,
                         fontWeight: FontWeight.bold,
@@ -73,14 +74,100 @@ class SettingsScreen extends ConsumerWidget {
                 const SizedBox(height: 12),
                 _buildSettingTile(
                   isDark: isDark,
-                  icon: Icons.description_rounded,
-                  label: "Terms",
+                  icon: Icons.cloud,
+                  label: "Library",
+                  subtitle: "Last sync",
+                  textTheme: textTheme,
+                  trailing: _buildStaticBox(
+                    child: Text(
+                      "May 2026",
+                      style: textTheme.bodyLarge?.copyWith(
+                        color: VedaTheme.brandGreen,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Divider(
+                  color: isDark ? Colors.white10 : Colors.black12,
+                  thickness: 1,
+                ),
+                const SizedBox(height: 12),
+                _buildSettingTile(
+                  isDark: isDark,
+                  icon: Icons.warning_rounded,
+                  label: "Disclaimer",
+                  subtitle: "Safety & limits",
                   textTheme: textTheme,
                   trailing: TextButton(
                     onPressed: () => debugPrint("ToS Clicked"),
                     style: _buttonStyle(),
-                    child: const Icon(Icons.arrow_outward, size: 14, color: VedaTheme.brandGreen),
+                    child: const Icon(Icons.arrow_outward, size: 18, color: VedaTheme.brandGreen),
                   ),
+                ),
+                const SizedBox(height: 12),
+                _buildSettingTile(
+                  isDark: isDark,
+                  icon: Icons.description_rounded,
+                  label: "Terms of Use",
+                  subtitle: "User agreement",
+                  textTheme: textTheme,
+                  trailing: TextButton(
+                    onPressed: () => debugPrint("ToS Clicked"),
+                    style: _buttonStyle(),
+                    child: const Icon(Icons.arrow_outward, size: 18, color: VedaTheme.brandGreen),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                _buildSettingTile(
+                  isDark: isDark,
+                  icon: Icons.privacy_tip_rounded,
+                  label: "Privacy",
+                  subtitle: "Data policies",
+                  textTheme: textTheme,
+                  trailing: TextButton(
+                    onPressed: () => debugPrint("ToS Clicked"),
+                    style: _buttonStyle(),
+                    child: const Icon(Icons.arrow_outward, size: 18, color: VedaTheme.brandGreen),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  "Local AI cross-references your herb pantry and mild symptoms with government health reports.\n\nFor educational use only; not to use for diagnosis or medical advice.\n\nAlways consult a healthcare professional for severe health concerns.",
+                  textAlign: TextAlign.left,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        fontFamily: VedaTheme.bodyFont,
+                        fontWeight: FontWeight.normal,
+                        color: isDark ? const Color.fromARGB(87, 255, 255, 255) : const Color.fromARGB(128, 0, 0, 0),
+                      ),
+                ),
+                const SizedBox(height: 32),
+
+                /// --- Sync ---
+                Text("Sync your data", style: textTheme.headlineLarge),
+                const SizedBox(height: 16),
+                _buildSettingTile(
+                  isDark: isDark,
+                  icon: Icons.person_rounded,
+                  label: "Log in",
+                  subtitle: "Access across devices",
+                  textTheme: textTheme,
+                  trailing: TextButton(
+                    onPressed: () => debugPrint("ToS Clicked"),
+                    style: _buttonStyle(),
+                    child: const Icon(Icons.login_rounded, size: 18, color: VedaTheme.brandGreen),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  "Syncing is used exclusively for your convenience.\n\nVeda does not sell personal data or track activity for advertising.",
+                  textAlign: TextAlign.left,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        fontFamily: VedaTheme.bodyFont,
+                        fontWeight: FontWeight.normal,
+                        color: isDark ? const Color.fromARGB(87, 255, 255, 255) : const Color.fromARGB(128, 0, 0, 0),
+                      ),
                 ),
               ],
             ),
@@ -99,9 +186,9 @@ class SettingsScreen extends ConsumerWidget {
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(
-                    Icons.arrow_back_ios_rounded, 
-                    size: 18, 
-                    color: VedaTheme.brandGreen
+                    Icons.arrow_back_ios_rounded,
+                    size: 18,
+                    color: VedaTheme.brandGreen,
                   ),
                 ),
               ),
@@ -112,16 +199,17 @@ class SettingsScreen extends ConsumerWidget {
     );
   }
 
-  /// Reusable Row Structure with Theme Integration
   Widget _buildSettingTile({
     required bool isDark,
     required IconData icon,
     required String label,
+    String? subtitle,
+    Color? iconColor,
     required Widget trailing,
     required TextTheme textTheme,
   }) {
     return Container(
-      height: 64,
+      height: 72,
       padding: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
         color: isDark ? Colors.white.withValues(alpha: 0.05) : Colors.white,
@@ -130,18 +218,33 @@ class SettingsScreen extends ConsumerWidget {
       ),
       child: Row(
         children: [
-          Icon(icon, color: VedaTheme.brandGreen, size: 22),
+          Icon(icon, color: iconColor ?? VedaTheme.brandGreen, size: 24),
           const SizedBox(width: 16),
-          Text(
-            label,
-            style: textTheme.displayLarge?.copyWith(fontSize: 15), // Scale down displayLarge for the label
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  label,
+                  style: textTheme.headlineSmall,
+                ),
+                if (subtitle != null && subtitle.isNotEmpty) ...[
+                  const SizedBox(height: 2),
+                  Text(
+                    subtitle,
+                    style: textTheme.bodySmall,
+                  ),
+                ],
+              ],
+            ),
           ),
-          const Spacer(),
-          
-          /// Strict Size Consistency (80x36)
+          const SizedBox(width: 8),
+
+          /// Removed the fixed width SizedBox. 
+          /// The height is fixed to 36, but width will now hug the content (Square vs Rect)
           SizedBox(
-            width: 80,
-            height: 36,
+            height: 36, 
             child: trailing,
           ),
         ],
@@ -159,11 +262,13 @@ class SettingsScreen extends ConsumerWidget {
 
   /// Button Style derived from VedaTheme logic
   ButtonStyle _buttonStyle() => TextButton.styleFrom(
-        backgroundColor: VedaTheme.brandGreen.withValues(alpha: 0.1),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        padding: EdgeInsets.zero,
-        minimumSize: Size.zero,
-      );
+    backgroundColor: VedaTheme.brandGreen.withValues(alpha: 0.1),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+    // horizontal padding allows text to breathe; 0 padding for icons makes them square
+    padding: const EdgeInsets.symmetric(horizontal: 12), 
+    minimumSize: const Size(36, 36), // Minimum is a 36x36 square
+    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+  );
 
   IconData _getThemeIcon(ThemeMode mode) {
     if (mode == ThemeMode.light) return Icons.light_mode_rounded;

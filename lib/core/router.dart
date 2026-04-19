@@ -7,7 +7,33 @@ import 'package:vedaherb/features/onboarding/tutorial.dart';
 import 'package:vedaherb/features/dashboard/dashboard.dart';
 import 'package:vedaherb/features/settings/settings.dart';
 
-/// Helper to wrap screens in a consistent fade-in transition.
+/// Helper to wrap screens in a consistent transition.
+CustomTransitionPage _popPage({
+  required BuildContext context,
+  required GoRouterState state,
+  required Widget child,
+}) {
+  return CustomTransitionPage(
+    key: state.pageKey,
+    child: child,
+    transitionsBuilder: (context, anim, secondaryAnim, child) {
+      return FadeTransition(
+        opacity: anim,
+        child: ScaleTransition(
+          scale: anim.drive(
+            Tween<double>(
+              begin: 0.85, // Start slightly smaller
+              end: 1.0,    // Pop to full size
+            ).chain(CurveTween(curve: Curves.easeOutCubic)), // Adds the "pop" bounce
+          ),
+          child: child,
+        ),
+      );
+    },
+    transitionDuration: const Duration(milliseconds: 300),
+  );
+}
+
 CustomTransitionPage _fadePage({
   required BuildContext context,
   required GoRouterState state,
@@ -76,11 +102,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: '/home',
-        pageBuilder: (context, state) => _fadePage(
+        pageBuilder: (context, state) => _popPage(
           context: context,
           state: state,
           child: const HomeScreen(),
-          durationMs: 1000, // Slightly longer transition for the final entry.
         ),
       ),
       GoRoute(

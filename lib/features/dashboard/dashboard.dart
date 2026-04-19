@@ -107,21 +107,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                     ),
                     const SizedBox(height: 40),
                     Text(
-                      "It's quiet for now.",
+                      "Nothing yet",
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                            fontFamily: VedaTheme.titleFont,
-                            fontWeight: FontWeight.bold,
-                            color: isDark ? Colors.white : Colors.black87,
-                          ),
+                      style: Theme.of(context).textTheme.displayLarge
                     ),
                     const SizedBox(height: 15),
                     Text(
-                      "Click the + button below to scan your garden, chat about symptoms, or access emergency info.",
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            color: isDark ? Colors.white70 : Colors.black54,
-                            height: 1.5,
-                          ),
+                      "Click the + button below to start.",
+                      style: Theme.of(context).textTheme.bodyLarge,
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 80),
@@ -167,7 +160,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                       // Use the theme background color with a slight transparency
                       color: (Theme.of(context).brightness == Brightness.dark 
                           ? VedaTheme.darkBg 
-                          : VedaTheme.lightBg).withValues(alpha: 0.85), // Adjust alpha for "thickness"
+                          : VedaTheme.lightBg).withValues(alpha: 0.85),
                     ),
                     ),
                 ),

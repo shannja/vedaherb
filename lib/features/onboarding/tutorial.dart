@@ -78,7 +78,7 @@ class _TutorialScreenState extends ConsumerState<TutorialScreen> {
                                 child: Text(
                                   data['title']!,
                                   textAlign: TextAlign.center,
-                                  style: Theme.of(context).textTheme.headlineMedium
+                                  style: Theme.of(context).textTheme.displayLarge
                                 ),
                               ),
                             ),
@@ -186,9 +186,11 @@ class _TutorialScreenState extends ConsumerState<TutorialScreen> {
                     curve: Curves.easeInOutCubic,
                   );
                 },
-                child: const Text(
+                child: Text(
                   'Back',
-                  style: TextStyle(color: VedaTheme.brandGreen, fontWeight: FontWeight.w600),
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    color: VedaTheme.brandGreen,
+                  ),
                 ),
               ),
             ),
@@ -235,7 +237,12 @@ class _TutorialScreenState extends ConsumerState<TutorialScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             ),
-            child: Text(_currentPage < _tutorialData.length - 1 ? 'Next' : 'Start'),
+            child: Text(
+              _currentPage < _tutorialData.length - 1 ? 'Next' : 'Start', 
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                color: Colors.white,
+              ),
+            ),
           ),
         ],
       ),

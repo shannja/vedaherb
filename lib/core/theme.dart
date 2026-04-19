@@ -16,35 +16,43 @@ class VedaTheme {
   /// Shared Text Theme to keep things consistent
   static TextTheme _buildTextTheme(TextTheme base, Color textColor) {
     return base.copyWith(
-      // For Page Titles / App Bar Titles
+      // For Section headers and Prominent Titles
       displayLarge: TextStyle(
         fontFamily: titleFont,
         fontWeight: FontWeight.bold,
-        fontSize: 20,
-        color: textColor,
-      ),
-      headlineMedium: TextStyle(
-        fontFamily: titleFont,
-        fontWeight: FontWeight.w700,
         fontSize: 18,
         color: textColor,
       ),
+      
+      // For titles
+      headlineLarge: TextStyle(
+        fontFamily: titleFont,
+        fontWeight: FontWeight.bold,
+        fontSize: 15,
+      ),
+      headlineMedium: TextStyle(
+        fontFamily: titleFont,
+        fontWeight: FontWeight.bold,
+        fontSize: 14,
+      ),
+      headlineSmall: TextStyle(
+        fontFamily: titleFont,
+        fontWeight: FontWeight.bold,
+        fontSize: 13,
+      ),
+
       // For Descriptions / Subtitles
       bodyLarge: TextStyle(
         fontFamily: bodyFont,
         fontSize: 12,
-        color: textColor.withValues(alpha: 0.8),
       ),
       bodyMedium: TextStyle(
         fontFamily: bodyFont,
         fontSize: 11,
-        color: textColor.withValues(alpha: 0.7),
       ),
-      // For Buttons
-      labelLarge: TextStyle(
+      bodySmall: TextStyle(
         fontFamily: bodyFont,
-        fontWeight: FontWeight.w600,
-        fontSize: 12,
+        fontSize: 10,
       ),
     );
   }

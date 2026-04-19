@@ -8,7 +8,7 @@ import 'package:vedaherb/core/router.dart';
 import 'package:vedaherb/core/theme.dart';
 
 /// Manages app-wide brightness (Light/Dark/System)
-final themeProvider = StateProvider<ThemeMode>((ref) => ThemeMode.system);
+final themeProvider = StateProvider<ThemeMode>((ref) => ThemeMode.light);
 
 
 void main() async {
