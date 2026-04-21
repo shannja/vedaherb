@@ -21,5 +21,3 @@ In rural ASEAN, healthcare is often hours away. Communities rely on herbal herit
 - **State Management:** Riverpod
 - **Local AI:** LiteRT (formerly TensorFlow Lite) for Vision & Gemma 3 for NLP
 - **Database:** ObjectBox (NoSQL / Vector Database)
-
-> Made by CPE Department of Mapúa Malayan Colleges Laguna for P2A ASEAN AI Hackathon 2026
