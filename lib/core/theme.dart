@@ -13,7 +13,8 @@ class VedaTheme {
   static const String titleFont = 'Onest';
   static const String bodyFont = 'Funnel_Display';
 
-  /// Shared Text Theme to keep things consistent
+  /// Shared Text Theme to keep things consistent.
+  /// Buttons usually use headlineSmall, section headers use displayLarge, and body text uses bodyLarge/Medium/Small depending on importance.
   static TextTheme _buildTextTheme(TextTheme base, Color textColor) {
     return base.copyWith(
       // For Section headers and Prominent Titles

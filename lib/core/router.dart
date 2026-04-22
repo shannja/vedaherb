@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:vedaherb/features/onboarding/loading.dart';
 import 'package:vedaherb/features/onboarding/tutorial.dart';
 import 'package:vedaherb/features/dashboard/dashboard.dart';
+import 'package:vedaherb/features/session/domain/models.dart';
+import 'package:vedaherb/features/session/session.dart';
 import 'package:vedaherb/features/settings/settings.dart';
 
 /// Helper to wrap screens in a consistent transition.
@@ -22,7 +24,7 @@ CustomTransitionPage _popPage({
         child: ScaleTransition(
           scale: anim.drive(
             Tween<double>(
-              begin: 0.85, // Start slightly smaller
+              begin: 0.90, // Start slightly smaller
               end: 1.0,    // Pop to full size
             ).chain(CurveTween(curve: Curves.easeOutCubic)), // Adds the "pop" bounce
           ),
@@ -30,7 +32,7 @@ CustomTransitionPage _popPage({
         ),
       );
     },
-    transitionDuration: const Duration(milliseconds: 300),
+    transitionDuration: const Duration(milliseconds: 600),
   );
 }
 
@@ -106,6 +108,18 @@ final routerProvider = Provider<GoRouter>((ref) {
           context: context,
           state: state,
           child: const HomeScreen(),
+        ),
+      ),
+      GoRoute(
+        path: '/session/:sessionId',
+        name: 'session',
+        pageBuilder: (context, state)  => _popPage(
+          context: context,
+          state: state,
+          child: SessionScreen(
+            entryPoint: state.extra as SessionEntryPoint? ?? SessionEntryPoint.camera,
+            sessionId: state.pathParameters['sessionId'],
+          ),
         ),
       ),
       GoRoute(

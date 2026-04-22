@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:go_router/go_router.dart';
 
-class LoadingScreen extends StatefulWidget {
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vedaherb/features/onboarding/application/onboarding_controller.dart';
+
+class LoadingScreen extends ConsumerStatefulWidget {
   const LoadingScreen({super.key});
 
   @override
-  State<LoadingScreen> createState() => _LoadingScreenState();
+  ConsumerState<LoadingScreen> createState() => _LoadingScreenState();
 }
 
-class _LoadingScreenState extends State<LoadingScreen> {
+class _LoadingScreenState extends ConsumerState<LoadingScreen> {
   @override
   void initState() {
     super.initState();
@@ -20,11 +22,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
   Future<void> _checkStatusAndNavigate() async {
     // Artificial delay to ensure the branding/logo is visible.
     await Future.delayed(const Duration(seconds: 2));
-
-    final prefs = await SharedPreferences.getInstance();
-    
-    // Check if user has completed the onboarding flow; defaults to false.
-    final bool hasSeenOnboarding = prefs.getBool('has_seen_onboarding') ?? false;
+    final bool hasSeenOnboarding =
+        await ref.read(onboardingControllerProvider.future);
 
     // Ensure context is still valid before triggering GoRouter navigation.
     if (mounted) {

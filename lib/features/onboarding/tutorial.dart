@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vedaherb/core/theme.dart';
-import 'package:vedaherb/main.dart';
+import 'package:vedaherb/features/onboarding/application/onboarding_controller.dart';
+import 'package:vedaherb/features/settings/application/settings_controller.dart';
 
 class TutorialScreen extends ConsumerStatefulWidget {
   const TutorialScreen({super.key});
@@ -45,121 +45,118 @@ class _TutorialScreenState extends ConsumerState<TutorialScreen> {
     return Scaffold(
       backgroundColor: isDark ? VedaTheme.darkBg : VedaTheme.lightBg,
       body: SafeArea(
-        child: Stack(
+        child: Column(
           children: [
-            Column(
-              children: [
-                Expanded(
-                  child: PageView.builder(
-                    controller: _pageController,
-                    onPageChanged: (index) => setState(() => _currentPage = index),
-                    itemCount: _tutorialData.length,
-                    itemBuilder: (context, index) {
-                      final data = _tutorialData[index];
-                      final imagePath = isDark ? data['imageDark'] : data['imageLight'];
-                      final bool isVisible = _currentPage == index;
+            /// Theme toggle — top right, part of layout not floating
+            Padding(
+              padding: const EdgeInsets.only(top: 24, right: 20),
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Consumer(
+                  builder: (context, ref, child) {
+                    final themeMode = ref
+                            .watch(settingsControllerProvider)
+                            .asData
+                            ?.value
+                            .themeMode ??
+                        ThemeMode.light;
 
-                      return Padding(
-                        padding: const EdgeInsets.all(40.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(imagePath ?? '', height: 250),
-                            const SizedBox(height: 30),
-                            
-                            /// Entry animation for Title.
-                            AnimatedSlide(
-                              offset: isVisible ? Offset.zero : const Offset(0, 0.2),
-                              duration: const Duration(milliseconds: 600),
-                              curve: Curves.easeOutCubic,
-                              child: AnimatedOpacity(
-                                opacity: isVisible ? 1.0 : 0.0,
-                                duration: const Duration(milliseconds: 600),
-                                child: Text(
-                                  data['title']!,
-                                  textAlign: TextAlign.center,
-                                  style: Theme.of(context).textTheme.displayLarge
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 15),
-                            
-                            /// Entry animation for Description (staggered slightly slower).
-                            AnimatedSlide(
-                              offset: isVisible ? Offset.zero : const Offset(0, 0.4),
-                              duration: const Duration(milliseconds: 800),
-                              curve: Curves.easeOutCubic,
-                              child: AnimatedOpacity(
-                                opacity: isVisible ? 1.0 : 0.0,
-                                duration: const Duration(milliseconds: 800),
-                                child: Text(
-                                  data['description']!,
-                                  textAlign: TextAlign.center,
-                                  style: Theme.of(context).textTheme.bodyLarge
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                _buildBottomSection(isDark),
-              ],
-            ),
-            
-            /// Floating Theme Toggle.
-            Positioned(
-              top: 10,
-              right: 10,
-              child: Consumer(
-                builder: (context, ref, child) {
-                  // 1. Watch the current theme mode
-                  final themeMode = ref.watch(themeProvider);
-                  
-                  // 2. Define the icon based on the 3 states
-                  IconData themeIcon;
-                  switch (themeMode) {
-                    case ThemeMode.light:
-                      themeIcon = Icons.light_mode_rounded;
-                      break;
-                    case ThemeMode.dark:
-                      themeIcon = Icons.dark_mode_rounded;
-                      break;
-                    case ThemeMode.system:
-                    themeIcon = Icons.brightness_auto_rounded; // Represents "System"
-                      break;
-                  }
+                    var themeIcon = Icons.brightness_auto_rounded;
+                    switch (themeMode) {
+                      case ThemeMode.light:
+                        themeIcon = Icons.light_mode_rounded;
+                        break;
+                      case ThemeMode.dark:
+                        themeIcon = Icons.dark_mode_rounded;
+                        break;
+                      case ThemeMode.system:
+                        themeIcon = Icons.brightness_auto_rounded;
+                        break;
+                    }
 
-                  return Container(
-                    decoration: BoxDecoration(
-                      color: VedaTheme.brandGreen.withValues(alpha: 0.1),
-                      shape: BoxShape.circle,
-                    ),
-                    child: IconButton(
-                      icon: Icon(
-                        themeIcon,
-                        color: VedaTheme.brandGreen,
+                    return Container(
+                      decoration: BoxDecoration(
+                        color: VedaTheme.brandGreen.withValues(alpha: 0.1),
+                        shape: BoxShape.circle,
                       ),
-                      onPressed: () {
-                        // 3. Cycle logic: System -> Light -> Dark -> (back to System)
-                        ThemeMode nextMode;
-                        if (themeMode == ThemeMode.system) {
-                          nextMode = ThemeMode.light;
-                        } else if (themeMode == ThemeMode.light) {
-                          nextMode = ThemeMode.dark;
-                        } else {
-                          nextMode = ThemeMode.system;
-                        }
-                        
-                        ref.read(themeProvider.notifier).state = nextMode;
-                      },
+                      child: IconButton(
+                        icon: Icon(themeIcon, color: VedaTheme.brandGreen, size: 22),
+                        onPressed: () {
+                          ThemeMode nextMode;
+                          if (themeMode == ThemeMode.system) {
+                            nextMode = ThemeMode.light;
+                          } else if (themeMode == ThemeMode.light) {
+                            nextMode = ThemeMode.dark;
+                          } else {
+                            nextMode = ThemeMode.system;
+                          }
+                          ref
+                              .read(settingsControllerProvider.notifier)
+                              .setThemeMode(nextMode);
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+
+            /// PageView takes remaining space
+            Expanded(
+              child: PageView.builder(
+                controller: _pageController,
+                onPageChanged: (index) => setState(() => _currentPage = index),
+                itemCount: _tutorialData.length,
+                itemBuilder: (context, index) {
+                  final data = _tutorialData[index];
+                  final imagePath = isDark ? data['imageDark'] : data['imageLight'];
+                  final bool isVisible = _currentPage == index;
+
+                  return Padding(
+                    padding: const EdgeInsets.all(40.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(imagePath ?? '', height: 250),
+                        const SizedBox(height: 30),
+                        AnimatedSlide(
+                          offset: isVisible ? Offset.zero : const Offset(0, 0.2),
+                          duration: const Duration(milliseconds: 600),
+                          curve: Curves.easeOutCubic,
+                          child: AnimatedOpacity(
+                            opacity: isVisible ? 1.0 : 0.0,
+                            duration: const Duration(milliseconds: 600),
+                            child: Text(
+                              data['title']!,
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context).textTheme.displayLarge,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 15),
+                        AnimatedSlide(
+                          offset: isVisible ? Offset.zero : const Offset(0, 0.4),
+                          duration: const Duration(milliseconds: 800),
+                          curve: Curves.easeOutCubic,
+                          child: AnimatedOpacity(
+                            opacity: isVisible ? 1.0 : 0.0,
+                            duration: const Duration(milliseconds: 800),
+                            child: Text(
+                              data['description']!,
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   );
                 },
               ),
             ),
+
+            /// Bottom navigation section
+            _buildBottomSection(isDark),
           ],
         ),
       ),
@@ -224,8 +221,9 @@ class _TutorialScreenState extends ConsumerState<TutorialScreen> {
                   curve: Curves.easeInOutCubic,
                 );
               } else {
-                final prefs = await SharedPreferences.getInstance();
-                await prefs.setBool('has_seen_onboarding', true);
+                await ref
+                    .read(onboardingControllerProvider.notifier)
+                    .setHasSeenOnboarding();
 
                 if (mounted) context.go('/home');
               }
