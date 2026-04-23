@@ -15,7 +15,7 @@ enum SessionState {
 enum MessageType { text, plantResult, suggestion, monitoring }
 
 @immutable
-class ChatMessage {
+class SessionChatMessage {
   final String id;
   final String text;
   /// Absolute path to a locally persisted image (app documents), if any.
@@ -24,7 +24,7 @@ class ChatMessage {
   final DateTime timestamp;
   final MessageType type;
 
-  const ChatMessage({
+  const SessionChatMessage({
     required this.id,
     this.text = '',
     this.localImagePath,
@@ -33,7 +33,7 @@ class ChatMessage {
     this.type = MessageType.text,
   });
 
-  ChatMessage copyWith({
+  SessionChatMessage copyWith({
     String? id,
     String? text,
     String? localImagePath,
@@ -41,7 +41,7 @@ class ChatMessage {
     DateTime? timestamp,
     MessageType? type,
   }) {
-    return ChatMessage(
+    return SessionChatMessage(
       id: id ?? this.id,
       text: text ?? this.text,
       localImagePath: localImagePath ?? this.localImagePath,
@@ -57,7 +57,7 @@ class SessionData {
   final String sessionId;
   final String title;
   final SessionEntryPoint entryPoint;
-  final List<ChatMessage> messages;
+  final List<SessionChatMessage> messages;
   final String? identifiedPlant;
   final SessionState currentState;
   final DateTime createdAt;
@@ -78,7 +78,7 @@ class SessionData {
     String? sessionId,
     String? title,
     SessionEntryPoint? entryPoint,
-    List<ChatMessage>? messages,
+    List<SessionChatMessage>? messages,
     String? identifiedPlant,
     SessionState? currentState,
     DateTime? createdAt,

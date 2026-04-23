@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:vedaherb/features/onboarding/loading.dart';
 import 'package:vedaherb/features/onboarding/tutorial.dart';
 import 'package:vedaherb/features/dashboard/dashboard.dart';
-import 'package:vedaherb/features/session/domain/models.dart';
 import 'package:vedaherb/features/session/session.dart';
 import 'package:vedaherb/features/settings/settings.dart';
 

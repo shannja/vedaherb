@@ -72,8 +72,8 @@ extension SessionDataJson on SessionData {
   }
 }
 
-// Add toJson/fromJson to ChatMessage
-extension ChatMessageJson on ChatMessage {
+// Add toJson/fromJson to SessionChatMessage
+extension ChatMessageJson on SessionChatMessage {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -85,8 +85,8 @@ extension ChatMessageJson on ChatMessage {
     };
   }
   
-  static ChatMessage fromJson(Map<String, dynamic> json) {
-    return ChatMessage(
+  static SessionChatMessage fromJson(Map<String, dynamic> json) {
+    return SessionChatMessage(
       id: json['id'],
       text: json['text'] as String? ?? '',
       localImagePath: json['localImagePath'] as String?,

@@ -158,7 +158,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
 
     final now = DateTime.now();
     final initialMessages = [
-      ChatMessage(
+      SessionChatMessage(
         id: now.millisecondsSinceEpoch.toString(),
         localImagePath: storedPath,
         isUser: true,
@@ -307,7 +307,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     final now = DateTime.now();
     final initialMessages = entryPoint == SessionEntryPoint.chat
         ? [
-            ChatMessage(
+            SessionChatMessage(
               id: now.millisecondsSinceEpoch.toString(),
               text:
                   "Hello! Tell me how you're feeling today. Describe your symptoms and I'll help find the right herbal remedy.",
@@ -315,7 +315,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
               timestamp: now,
             ),
           ]
-        : const <ChatMessage>[];
+        : const <SessionChatMessage>[];
 
     final session = SessionData(
       sessionId: sessionId,

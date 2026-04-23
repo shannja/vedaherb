@@ -1,4 +1,4 @@
-package com.example.project
+package com.vedaherb.veda
 
 import io.flutter.embedding.android.FlutterActivity
 

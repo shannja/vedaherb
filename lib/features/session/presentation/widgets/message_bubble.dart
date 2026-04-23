@@ -12,7 +12,7 @@ class SessionMessageBubble extends StatelessWidget {
     required this.isDark,
   });
 
-  final ChatMessage message;
+  final SessionChatMessage message;
   final bool isDark;
 
   @override
