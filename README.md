@@ -1,14 +1,14 @@
-# Veda.Herb (vedaherb.app)
+# Lunti
 
 [![Flutter](https://img.shields.io/badge/Built%20with-Flutter-02569B?style=flat-square&logo=flutter)](https://flutter.dev)
 [![AI Engine](https://img.shields.io/badge/AI-Gemma%203%20%2B%20LiteRT-green?style=flat-square)](https://ai.google.dev)
 
 > **"Heritage in your pocket, health in your hands."**
 
-Veda.Herb is an offline-first mobile solution designed for the **ASEAN**. It digitizes traditional herbal wisdom across the ASEAN region, using Edge AI to provide safe, verified, and culturally resonant medical guidance in areas without internet connectivity.
+Lunti is an offline-first mobile solution designed for the **Philippines**. It digitizes traditional herbal wisdom across the Philippine region, using Edge AI to provide safe, verified, and culturally resonant medical guidance in areas without internet connectivity.
 
 ## The Challenge
-In rural ASEAN, healthcare is often hours away. Communities rely on herbal heritage, but as this knowledge fades, the misuse of antibiotics (AMR) rises. **Veda.Herb** acts as a bridge, ensuring traditional remedies are used safely and according to modern medical standards.
+In rural Philippines, healthcare is often hours away. Communities rely on herbal heritage, but as this knowledge fades, the misuse of antibiotics (AMR) rises. **Lunti** acts as a bridge, ensuring traditional remedies are used safely and according to modern medical standards.
 
 ## Key Features
 * **Step by Step Identification:** Combines **Computer Vision** (LiteRT) and **Sensory Triage** (User input) to prevent errors.
