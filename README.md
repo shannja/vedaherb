@@ -1,4 +1,4 @@
-# Lunti
+# Lunti [Under Development]
 
 [![Flutter](https://img.shields.io/badge/Built%20with-Flutter-02569B?style=flat-square&logo=flutter)](https://flutter.dev)
 [![AI Engine](https://img.shields.io/badge/AI-Gemma%203%20%2B%20LiteRT-green?style=flat-square)](https://ai.google.dev)
